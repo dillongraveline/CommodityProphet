@@ -1,15 +1,13 @@
 import pandas as pd
 from fbprophet import Prophet
 
-gold_data = pd.read_csv('monthly_csv.csv')
-
+gold_data = pd.read_csv('gold.csv')
 model = Prophet()
 
-gold_data.rename(columns={'Date': 'ds', 'Price': 'y'}, inplace=True)
-
+gold_data.rename(columns={'Date': 'ds', 'Close': 'y'}, inplace=True)
 model.fit(gold_data)
 
-future = model.make_future_dataframe(periods=12)
+future = model.make_future_dataframe(periods=365)
 
 forecast = model.predict(future)
 
